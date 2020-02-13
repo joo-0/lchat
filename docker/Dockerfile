@@ -1,10 +1,14 @@
 FROM node:10
 
-RUN mkdir -p /app
-WORKDIR /app
-ADD . /app
+# Install app dependencies 
+# A wildcard is used to ensure both package.json AND
+# packagelock.json are copied 
+COPY package*.json ./
 
 RUN npm install
+
+# Add your source files
+COPY ..
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
