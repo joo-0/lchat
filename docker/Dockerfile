@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm install
 
 # Add your source files
-COPY ..
+COPY . .
 
 EXPOSE 3000
 CMD [ "npm", "start" ]
