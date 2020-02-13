@@ -1,5 +1,7 @@
 FROM node:10
 
+WORKDIR /usr/src/app
+
 # Install app dependencies 
 # A wildcard is used to ensure both package.json AND
 # packagelock.json are copied 
