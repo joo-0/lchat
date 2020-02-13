@@ -1,0 +1,55 @@
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    background-color: #242424;
+    color: #fff;
+}
+
+body { 
+    font: 13px Monospace, Helvetica, Arial; 
+    padding: 5px 10px; 
+}
+        
+form { 
+    background: #242424; 
+    padding: 3px; 
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
+    border-color: #242424;
+    border-top-style: solid; 
+    border-top-width: 1px;
+}
+
+form input { 
+    border-style: none; 
+    padding: 10px; 
+    width: 85%; 
+    margin-right: .5%;
+}
+form input:focus {
+    outline-color: #242424;
+}
+
+#messages { 
+    font-family: Monospace, Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    list-style-type: none; 
+    margin: 0;  
+    padding: 0; 
+    padding-bottom: 35px;
+}
+
+#messages li.online { 
+    color:  #43fcc5;;
+}
+#messages li.offline { 
+    color: #ff666a;
+}
+#messages li.my { 
+    color: #00ffff;
+}
+
+/* #messages li:nth-child(odd) { 
+    background: #eee;
+} */

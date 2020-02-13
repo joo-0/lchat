@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../../socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <title>Simple Group Chat on Node.js</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div>
+      <pre>
+        ┌──────────────────────────────────┐
+        │                         ? ChatXterm 12.4 ?                         │
+        │           (SSH client, X-server and networking tools)              │
+        │                                                                    │
+        │ >  SSH session to root@10.80.9.3                                   │
+        │    ? SSH compression :                                             │
+        │    ? SSH-browser :                                                 │
+        │    ? X11-forwarding :  (remote display is forwarded through SSH)   │
+        │    ? DISPLAY :  (automatically set on remote server)               │
+        │                                                                    │
+        │ >  For more info, ctrl+click on help or visit our website          │
+        └──────────────────────────────────┘
+      </pre>
+    </div>
+    <div>
+      <p>Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-97-generic x86_64)</p>
+      <br/>
+      <p>* Documentation: https://help.ubuntu.com</p>
+      <p>* Management: https://landscape.canonical.com</p>
+      <p>* Support: https://ubuntu.com/advantage</p>
+      <br/>
+      <p>198 packages can be updated.</p>
+      <p>128 updates are security updates.</p>
+      <br/>
+      <p>New release '18.04.3 LTS' available.</p>
+      <p>Run 'do-release-upgrade' to upgrade to it.</p>
+      <br/>
+      <p><span style="color:aqua;">Last login:</span> Mon Feb 10 11:20:52 2020 from <span id="myip" style="color:darkviolet;"></span></p>
+      <br/>
+    </div>
+    <div>
+      <ul id="messages"></ul>
+    </div>
+    <div>
+      <form action="/" method="POST" id="chatForm">
+        <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." />
+        <!-- <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /> -->
+      </form>
+    </div>
+    <script>
+            var socket = io.connect('http://localhost:3000');
+
+            var username = prompt('Please tell me your name');
+            while(username == undefined || username == '') {
+              username = prompt('Please tell me your name');
+            }
+            socket.emit('username', username);
+
+            // submit text message without reload/refresh the page
+            $('form').submit(function(e){
+                socket.emit('chat_message', $('#txt').val());
+                $('#txt').val('');
+                $('#txt').focus();
+                e.preventDefault(); // prevents page reloading
+                return false;
+            });
+            socket.on('my_message', function(msg){
+                $('#messages').append($('<li class="my">').html(msg));
+                $(document).scrollTop($(document).height());
+            });
+            socket.on('chat_message', function(msg){
+                $('#messages').append($('<li>').html(msg));
+                $(document).scrollTop($(document).height());
+            });
+            socket.on('is_online', function(msg) {
+                $('#messages').append($('<li class="online">').html(msg));
+                $(document).scrollTop($(document).height());
+            });
+            socket.on('is_offline', function(msg) {
+                $('#messages').append($('<li class="offline">').html(msg));
+                $(document).scrollTop($(document).height());
+            });
+            socket.on('my_ip', function(ip){
+                $('#myip').text(ip);
+            });
+            socket.on('username', function(msg){
+              socket.emit('username', username);
+            });
+    </script>
+  </body>
+</html>
