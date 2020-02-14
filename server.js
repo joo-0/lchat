@@ -10,27 +10,19 @@ app.engine('html', require('ejs').renderFile);
 
 io.sockets.on('connection', function(socket) {
   console.log('user connected: ', socket.id);
-  // send clint ip
-  var clientIpAddress = socket.request.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
-  io.to(socket.id).emit('my_ip', clientIpAddress);
 
   socket.on('username', function(username) {
       socket.username = username;
+      var clientIpAddress = socket.request.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
       io.emit('is_online', socket.username + '(' + clientIpAddress+ ') is connected...');
-  });
+      // TODO: send clint ip
+      io.to(socket.id).emit('my_ip', clientIpAddress);
+    });
 
   socket.on('disconnect', function(username) {
       io.emit('is_offline', socket.username + '(' + socket.handshake.address+ ') is disconnected...');
       console.log('user disconnected: ' + socket.id + '(' + socket.username + ')');
   })
-
-  // socket.on('chat_message', function(message) {
-  //     if(socket.username == undefined) { // if chat server is crushed & restarted
-  //       io.to(socket.id).emit('username', 'tell me again...');
-  //     } else {
-  //       io.emit('chat_message', socket.username + '@' + socket.id + ':~#: ' + message);
-  //     }
-  // });
 
   socket.on('chat_message', function(message) {
     if(socket.username == undefined) { // if chat server is crushed & restarted
