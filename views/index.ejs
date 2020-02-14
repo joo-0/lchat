@@ -49,7 +49,10 @@
       </form>
     </div>
     <script>
-            var socket = io.connect('http://localhost:3000');
+            //TODO: 환경변수로
+            // for local
+            // var socket = io.connect('http://localhost:3000');
+            var socket = io.connect('http://10.80.9.3:49160');
 
             var username = prompt('Please tell me your name');
             while(username == undefined || username == '') {

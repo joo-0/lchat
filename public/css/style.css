@@ -7,7 +7,7 @@
 }
 
 body { 
-    font: 13px Monospace, Helvetica, Arial; 
+    font: 13px Consolas, Monospace, Helvetica, Arial; 
     padding: 5px 10px; 
 }
         
@@ -33,7 +33,7 @@ form input:focus {
 }
 
 #messages { 
-    font-family: Monospace, Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    font-family: Consolas, Monospace, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
     list-style-type: none; 
     margin: 0;  
     padding: 0; 
