@@ -11,6 +11,6 @@
   "dependencies": {
     "ejs": "^3.0.1",
     "express": "^4.15.3",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.4.0"
   }
 }
